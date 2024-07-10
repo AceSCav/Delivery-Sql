@@ -56,10 +56,10 @@ CREATE TABLE Delivery.[Entregador]
 	[Nome] varchar(60) NOT NULL,
 	[Telefone] int NOT NULL,
 	[NIF] char(9) NOT NULL,
-	[Matricula do veÌculo] char(9) NULL,
+	[Matricula do ve√≠culo] char(9) NULL,
 	[Email] varchar (30) NOT NULL,
 	[Morada] varchar(150) NOT NULL,
-	[Regi„o_id] int NOT NULL,
+	[Regi√£o_id] int NOT NULL,
 	PRIMARY KEY CLUSTERED 
 (
 	[Entregador_id] ASC
@@ -72,7 +72,7 @@ CREATE TABLE Delivery.[Entrega]
 (
 	[Entrega_id] int NOT NULL    ,
 	[Data de entrega] datetime NULL,
-	[SituaÁ„o_id] int  NOT NULL,
+	[Situa√ß√£o_id] int  NOT NULL,
 	[Pacote_id] int NOT NULL,
 	[Valor por Entrega] decimal(5,2) NOT NULL,
 	[Entregador_id] int NOT NULL
@@ -104,7 +104,7 @@ GO
 CREATE TABLE Delivery.[Tipo_Pacote]
 (
 	[Tp_Pacote_id] int NOT NULL    ,
-	[DesignaÁ„o] varchar(60)  NULL,
+	[Designa√ß√£o] varchar(60)  NULL,
 	[Valor] int  NULL,
 	PRIMARY KEY CLUSTERED 
 (
@@ -142,15 +142,15 @@ PRIMARY KEY CLUSTERED
 )
 GO
 
-CREATE TABLE Delivery.[Regi„o]
+CREATE TABLE Delivery.[Regi√£o]
 (
-	[Regi„o_id] int  NOT NULL    ,
-	[DesignaÁ„o] varchar(60) NOT NULL,
+	[Regi√£o_id] int  NOT NULL    ,
+	[Designa√ß√£o] varchar(60) NOT NULL,
 	[Taxa de Sucesso] decimal(3,2) NULL,
 	[Gestor_id] int  NOT NULL
 	PRIMARY KEY CLUSTERED 
 (
-	[Regi„o_id] ASC
+	[Regi√£o_id] ASC
 )
 )  
 GO
@@ -185,11 +185,11 @@ GO
 
 CREATE TABLE Delivery.[Ocorrencia na entrega]
 (
-	[SituaÁ„o_id] int NOT NULL    ,
+	[Situa√ß√£o_id] int NOT NULL    ,
 	[Tp_ocorrencia] varchar(60)  NULL,
 	PRIMARY KEY CLUSTERED 
 (
-	[SituaÁ„o_id] ASC
+	[Situa√ß√£o_id] ASC
 )
 ) 
 GO
@@ -226,16 +226,16 @@ ALTER TABLE Delivery.[Coleta]  WITH CHECK ADD  CONSTRAINT [FK_Coleta_Entregregad
 REFERENCES Delivery.[Entregador] ([Entregador_id])
 ON UPDATE CASCADE
 GO
-ALTER TABLE Delivery.[Entregador]  WITH CHECK ADD  CONSTRAINT [FK_Entregador_Regi„o] FOREIGN KEY([Regi„o_id])
-REFERENCES Delivery.[Regi„o] ([Regi„o_id])
+ALTER TABLE Delivery.[Entregador]  WITH CHECK ADD  CONSTRAINT [FK_Entregador_Regi√£o] FOREIGN KEY([Regi√£o_id])
+REFERENCES Delivery.[Regi√£o] ([Regi√£o_id])
 ON UPDATE CASCADE
 GO
-ALTER TABLE Delivery.[Regi„o]  WITH CHECK ADD  CONSTRAINT [FK_Regi„o_Gestor] FOREIGN KEY([Gestor_id])
+ALTER TABLE Delivery.[Regi√£o]  WITH CHECK ADD  CONSTRAINT [FK_Regi√£o_Gestor] FOREIGN KEY([Gestor_id])
 REFERENCES Delivery.[Gestor] ([Gestor_id])
 ON UPDATE CASCADE
 GO
-ALTER TABLE Delivery.[Entrega]  WITH CHECK ADD  CONSTRAINT [FK_Entrega_SituaÁ„o] FOREIGN KEY([SituaÁ„o_id])
-REFERENCES Delivery.[Ocorrencia na entrega] ([SituaÁ„o_id])
+ALTER TABLE Delivery.[Entrega]  WITH CHECK ADD  CONSTRAINT [FK_Entrega_Situa√ß√£o] FOREIGN KEY([Situa√ß√£o_id])
+REFERENCES Delivery.[Ocorrencia na entrega] ([Situa√ß√£o_id])
 ON UPDATE CASCADE
 GO
 ALTER TABLE Delivery.[Entrega]  WITH CHECK ADD  CONSTRAINT [FK_Entrega_Entregador] FOREIGN KEY([Entregador_id])
@@ -247,7 +247,7 @@ ON UPDATE CASCADE
 GO
 
 ------- INSERINDO DADOS BASE -------
-INSERT INTO Delivery.[Regi„o] ([Regi„o_id], [DesignaÁ„o], [Taxa de Sucesso], [Gestor_id])
+INSERT INTO Delivery.[Regi√£o] ([Regi√£o_id], [Designa√ß√£o], [Taxa de Sucesso], [Gestor_id])
 VALUES
 (1, 'Lisboa Centro', 0.95, 1),
 (2, 'Lisboa Norte', 0.90, 2),
@@ -256,19 +256,19 @@ VALUES
 (5, 'Lisboa Leste', 0.88, 5);
 GO
 
-INSERT INTO Delivery.[Tipo_Pacote] ([Tp_Pacote_id], [DesignaÁ„o], [Valor])
+INSERT INTO Delivery.[Tipo_Pacote] ([Tp_Pacote_id], [Designa√ß√£o], [Valor])
 VALUES
 (1, 'Pequeno', 10),
-(2, 'MÈdio', 20),
+(2, 'M√©dio', 20),
 (3, 'Grande', 30),
 (4, 'Extra Grande', 50),
 (5, 'Cancelado', 0);
 GO
 
-INSERT INTO Delivery.[Ocorrencia na entrega] ([SituaÁ„o_id], [Tp_ocorrencia])
+INSERT INTO Delivery.[Ocorrencia na entrega] ([Situa√ß√£o_id], [Tp_ocorrencia])
 VALUES
 (1, 'Cliente Ausente'),
-(2, 'EndereÁo Incorreto'),
+(2, 'Endere√ßo Incorreto'),
 (3, 'Entrega Reagendada'),
 (4, 'Pacote Danificado'),
 (5, 'Entrega Bem Sucedida'),
@@ -280,7 +280,7 @@ VALUES
 (1, 'Aguardando Coleta'),
 (2, 'Coletado'),
 (3, 'Aguardando Despacho'),
-(4, 'Em Tr‚nsito'),
+(4, 'Em Tr√¢nsito'),
 (5, 'Entregue'),
 (6, 'Reagendado'),
 (7, 'Cancelado');
@@ -297,11 +297,11 @@ GO
 
 INSERT INTO Delivery.[Cliente] ([Cliente_id], [NIF], [Nome], [Telefone], [Email], [Morada])
 VALUES
-(1, '123456789', 'JosÈ Almeida', '912345678', 'jose.almeida@example.com', 'Avenida A, 10, Lisboa'),
+(1, '123456789', 'Jos√© Almeida', '912345678', 'jose.almeida@example.com', 'Avenida A, 10, Lisboa'),
 (2, '098765432', 'Maria Ferreira', '913245678', 'maria.ferreira@example.com', 'Rua B, 20, Lisboa'),
 (3, '112233445', 'Carlos Silva', '914345678', 'carlos.silva@example.com', 'Travessa C, 30, Lisboa'),
 (4, '667788990', 'Ana Sousa', '915445678', 'ana.sousa@example.com', 'Alameda D, 40, Lisboa'),
-(5, '554433221', 'LuÌs Costa', '916545678', 'luis.costa@example.com', 'PraÁa E, 50, Lisboa');
+(5, '554433221', 'Lu√≠s Costa', '916545678', 'luis.costa@example.com', 'Pra√ßa E, 50, Lisboa');
 GO
 
 
@@ -310,14 +310,14 @@ INSERT INTO Delivery.[Vendedor] ([Vendedor_id], [Nome], [Telefone], [NIF], [Emai
 VALUES
 (1, 'Pedro Mendes', 917654321, '123456789', 'pedro.mendes@example.com', 'Rua F, 60, Lisboa'),
 (2, 'Rita Santos', 918754321, '987654321', 'rita.santos@example.com', 'Rua G, 70, Lisboa'),
-(3, 'Jo„o Pereira', 919854321, '192837465', 'joao.pereira@example.com', 'Rua H, 80, Lisboa'),
+(3, 'Jo√£o Pereira', 919854321, '192837465', 'joao.pereira@example.com', 'Rua H, 80, Lisboa'),
 (4, 'Paula Rocha', 910954321, '564738291', 'paula.rocha@example.com', 'Rua I, 90, Lisboa'),
 (5, 'Nuno Gomes', 911054321, '374829105', 'nuno.gomes@example.com', 'Rua J, 100, Lisboa');
 GO
 
-INSERT INTO Delivery.[Entregador] ([Entregador_id], [Nome], [Telefone], [NIF], [Matricula do veÌculo], [Email], [Morada], [Regi„o_id])
+INSERT INTO Delivery.[Entregador] ([Entregador_id], [Nome], [Telefone], [NIF], [Matricula do ve√≠culo], [Email], [Morada], [Regi√£o_id])
 VALUES
-(1, 'F·bio Ribeiro', 920123456, '456789123', '00-AA-01', 'fabio.ribeiro@example.com', 'Rua K, 110, Lisboa', 1),
+(1, 'F√°bio Ribeiro', 920123456, '456789123', '00-AA-01', 'fabio.ribeiro@example.com', 'Rua K, 110, Lisboa', 1),
 (2, 'Sofia Martins', 920223456, '654321987', '00-AA-02', 'sofia.martins@example.com', 'Rua L, 120, Lisboa', 2),
 (3, 'Tiago Neves', 920323456, '789123654', '00-AA-03', 'tiago.neves@example.com', 'Rua M, 130, Lisboa', 3),
 (4, 'Helena Costa', 920423456, '321987654', '00-AA-04', 'helena.costa@example.com', 'Rua N, 140, Lisboa', 4),
@@ -329,7 +329,7 @@ GO
 --TESTADA
 
 Create or alter Procedure USP_Update_Data (
-	@Tabela varchar(20), -- Esse par‚metro identifica a tabela que ser· atualizada
+	@Tabela varchar(20), -- Esse par√¢metro identifica a tabela que ser√° atualizada
 	@Id int,
 	@Nome varchar(60),
 	@Telefone char(9),
@@ -360,12 +360,12 @@ as
 				Morada = @Morada
 			WHERE Vendedor_id = @id;
 		else 
-			print('A tabela fornecida n„o existe, os par‚metros de tabela que podem ser utilizados s„o: Cliente, Entregador ou Vendedor')
+			print('A tabela fornecida n√£o existe, os par√¢metros de tabela que podem ser utilizados s√£o: Cliente, Entregador ou Vendedor')
 	end
 go
 
 
-----//(USP_Validate_Purchase)procedure para criar compra, fazer os checks necess·rios(se o cliente nao existir na base de dados retornar uma mensagem para criar o cliente primeiro)
+----//(USP_Validate_Purchase)procedure para criar compra, fazer os checks necess√°rios(se o cliente nao existir na base de dados retornar uma mensagem para criar o cliente primeiro)
 -- PROCEDURE TESTADA
 CREATE or alter PROCEDURE USP_Validate_Purchase 
     @Cliente_id INT,
@@ -379,7 +379,7 @@ BEGIN
 	SET @compraid = (SELECT MAX([Compra_id]) FROM Delivery.Compra)
     IF NOT EXISTS (SELECT 1 FROM Delivery.Cliente WHERE Cliente_id = @Cliente_id) --- se nao existe entao adicionar uma cliente
     BEGIN
-        RAISERROR('Cliente n„o existe. Por favor, crie o cliente primeiro.', 16, 1) ---- dizendo que o clienete nao existe
+        RAISERROR('Cliente n√£o existe. Por favor, crie o cliente primeiro.', 16, 1) ---- dizendo que o clienete nao existe
         RETURN
     END
 
@@ -395,11 +395,11 @@ BEGIN
     BEGIN
         INSERT INTO Delivery.Pacote (Pacote_id,Status_id, Compra_id, [Data Prevista])
         VALUES (@pacoteid+1,3, @Compraid+1, DATEADD(HOUR, 48, GETDATE()));
-††††END
+¬†¬†¬†¬†END
 END
 go
 
--- (USP_Collect_Value)procedure para coleta e classificaÁ„o de valor do pacote. (atualizar tabela pacotes sobre o status)
+-- (USP_Collect_Value)procedure para coleta e classifica√ß√£o de valor do pacote. (atualizar tabela pacotes sobre o status)
 -- PROCEDURE TESTADA
 Create or alter procedure USP_Collect_Value(
 	@entregador_id int,
@@ -420,7 +420,7 @@ as
 	end
 go	
 
--- (USP_Reschedule_Deliver) procedure para transito, reagendamento ou finalizaÁ„o de entrega (Atualizar tabela pacotes sobre isso)
+-- (USP_Reschedule_Deliver) procedure para transito, reagendamento ou finaliza√ß√£o de entrega (Atualizar tabela pacotes sobre isso)
 -- TESTADA
 Create or alter procedure USP_RescheduleOrDeliver_Package(
 	@entregador_id int, 
@@ -440,7 +440,7 @@ as
 		if @entrega_id is NULL and @ocorrencia_id = 6  -- se a entrega ainda nao esta atribuida a um pacote criamos a entrega e atribuimos o pacote a "em rota"
 			begin
 				SET @entrega_id = (SELECT MAX(Entrega_id) FROM Delivery.Entrega)
-				insert into Delivery.Entrega(Entrega_id, Entregador_id, Pacote_id,SituaÁ„o_id, [Valor por Entrega])
+				insert into Delivery.Entrega(Entrega_id, Entregador_id, Pacote_id,Situa√ß√£o_id, [Valor por Entrega])
 				values(@entrega_id+1,@entregador_id,@pacote_id,6, 5)
 				UPDATE Delivery.Pacote
 				SET Status_id = 4,
@@ -450,13 +450,13 @@ as
 			end
 		else if  @entrega_id is NULL and @ocorrencia_id <> 6
 			begin
-				RAISERROR('Objeto n„o est· em rota para ocorrencia solicitada', 16, 1)
+				RAISERROR('Objeto n√£o est√° em rota para ocorrencia solicitada', 16, 1)
 				RETURN
 			end
-		else if @entrega_id is not null and @ocorrencia_id = 5 -- se o pacote ja estiver atribuido a uma entrega e formos finalizar a entrega isso correr·
+		else if @entrega_id is not null and @ocorrencia_id = 5 -- se o pacote ja estiver atribuido a uma entrega e formos finalizar a entrega isso correr√°
 			begin
 					UPDATE Delivery.Entrega
-					SET SituaÁ„o_id = @ocorrencia_id,
+					SET Situa√ß√£o_id = @ocorrencia_id,
 						[Data de entrega] = getdate()
 					WHERE Entrega_id = @entrega_id;
 
@@ -464,17 +464,17 @@ as
 					SET Status_id = 5
 					WHERE Pacote_id = @pacote_id;
 			end
-		else if @entrega_id is not null and @ocorrencia_id <> 5 --se o pacote ja estiver atribuido a uma entrega e formos realizar uma aÁ„o que reagende o pacote.
+		else if @entrega_id is not null and @ocorrencia_id <> 5 --se o pacote ja estiver atribuido a uma entrega e formos realizar uma a√ß√£o que reagende o pacote.
 			begin
 				UPDATE Delivery.Entrega
-					SET SituaÁ„o_id = @ocorrencia_id
+					SET Situa√ß√£o_id = @ocorrencia_id
 					WHERE Entrega_id = @entrega_id;
 
 					UPDATE Delivery.Pacote
 					SET Status_id = 6
 					WHERE Pacote_id = @pacote_id;
 					
-					set @ocorrencia = (select Tp_ocorrencia from Delivery.[Ocorrencia na entrega] where SituaÁ„o_id = @ocorrencia_id) 
+					set @ocorrencia = (select Tp_ocorrencia from Delivery.[Ocorrencia na entrega] where Situa√ß√£o_id = @ocorrencia_id) 
 					SET @reagendamento_id = ISNULL((SELECT MAX(Reagendamento_id) FROM Delivery.Reagendamento), 0)
 					SET @num_tentativa =  ISNULL((SELECT MAX([Numero Tentativa]) FROM Delivery.Reagendamento where Entrega_id = @entrega_id), 0)
 					insert into Delivery.Reagendamento(Reagendamento_id, Entrega_id, [Nova Data],[Numero Tentativa],[Data Tentativa], [Motivo Insucesso])
@@ -495,7 +495,7 @@ BEGIN
     SELECT @Entrega_id = Entrega_id
     FROM inserted;
 
-    -- Verifique se o n˙mero de tentativas de reagendamento È 3 ou mais
+    -- Verifique se o n√∫mero de tentativas de reagendamento √© 3 ou mais
     IF (SELECT MAX([Numero Tentativa]) AS N_TENTATIVA FROM Delivery.Reagendamento WHERE Entrega_id = @Entrega_id) >= 3
     BEGIN
         -- Atualizar tipo de pacote para cancelado, isto vai zerar o valor do pacote
@@ -516,7 +516,7 @@ BEGIN
 		UPDATE Delivery.Entrega
         SET [Valor por Entrega] = 0
         WHERE Entrega_id = (SELECT Entrega_id FROM Delivery.Pacote WHERE Entrega_id = @Entrega_id);
-††††END
+¬†¬†¬†¬†END
 END;
 GO
 ---testado
@@ -529,33 +529,33 @@ BEGIN
 	DECLARE @EntregasFeitas int,
 			@Reagendadas int,
 			@Entrega_id int,
-			@Regi„o_id int
+			@Regi√£o_id int
 
 	set @Entrega_id = (select Entrega_id from Inserted)
 
-	set @Regi„o_id = (select top 1(Rg.Regi„o_id)
+	set @Regi√£o_id = (select top 1(Rg.Regi√£o_id)
 		from Delivery.Reagendamento R
 			Join Delivery.Entrega E on R.Entrega_id = E.Entrega_id
 			join Delivery.Entregador En on E.Entregador_id = En.Entregador_id
-			join Delivery.Regi„o Rg on En.Regi„o_id = Rg.Regi„o_id
+			join Delivery.Regi√£o Rg on En.Regi√£o_id = Rg.Regi√£o_id
 		where E.Entrega_id = @Entrega_id)
-	---- conta quantos reagendamentos tiveram na regi„o
+	---- conta quantos reagendamentos tiveram na regi√£o
 	set @Reagendadas = (select count(isnull(R.[Data Tentativa],0))
 			from Delivery.Reagendamento R
 			Join Delivery.Entrega E on R.Entrega_id = E.Entrega_id
 			join Delivery.Entregador En on E.Entregador_id = En.Entregador_id
-			join Delivery.Regi„o Rg on En.Regi„o_id = Rg.Regi„o_id
-		where Rg.Regi„o_id = @Regi„o_id)
-	--- conta quantas entregas foram completadas na regi„o
+			join Delivery.Regi√£o Rg on En.Regi√£o_id = Rg.Regi√£o_id
+		where Rg.Regi√£o_id = @Regi√£o_id)
+	--- conta quantas entregas foram completadas na regi√£o
 	set @EntregasFeitas = (select count(isnull([Data de entrega],0))
 		from Delivery.Entrega E 
 			join Delivery.Entregador En on E.Entregador_id = En.Entregador_id
-			join Delivery.Regi„o Rg on En.Regi„o_id = Rg.Regi„o_id
-		where Rg.Regi„o_id = @Regi„o_id)
+			join Delivery.Regi√£o Rg on En.Regi√£o_id = Rg.Regi√£o_id
+		where Rg.Regi√£o_id = @Regi√£o_id)
 	
-	update Delivery.Regi„o
+	update Delivery.Regi√£o
 	set [Taxa de Sucesso] = cast(@EntregasFeitas as float)/(isnull(@EntregasFeitas,0)+isnull(@Reagendadas,0))
-	where Regi„o_id = @Regi„o_id
+	where Regi√£o_id = @Regi√£o_id
 END;
 GO
 
@@ -605,12 +605,12 @@ go
 --VIEW PARA VERIFICAR FINANCEIRO DA EMPRESA
 create view Finances
 as
-select TP.DesignaÁ„o As [Tamanho do pacote],
+select TP.Designa√ß√£o As [Tamanho do pacote],
 	   TP.Valor as [Valor por pacote],
 	   Count(P.[Status_id]) as [Total Pacotes Concluidos],
-	   SUM(C.[Valor por Coleta])+SUM(E.[Valor por Entrega]) as [Custo LogÌstico],
-	   Count(P.[Status_id])*TP.Valor as [FaturaÁ„o Bruta],
-	   (Count(P.[Status_id])*TP.Valor)-(SUM(C.[Valor por Coleta])+SUM(E.[Valor por Entrega])) as [FaturaÁ„o lÌquida]
+	   SUM(C.[Valor por Coleta])+SUM(E.[Valor por Entrega]) as [Custo Log√≠stico],
+	   Count(P.[Status_id])*TP.Valor as [Fatura√ß√£o Bruta],
+	   (Count(P.[Status_id])*TP.Valor)-(SUM(C.[Valor por Coleta])+SUM(E.[Valor por Entrega])) as [Fatura√ß√£o l√≠quida]
 from Delivery.[Status] ST
 		join Delivery.Pacote P on ST.Status_id = P.Status_id
 		join Delivery.Coleta C on P.Coleta_id = C.Coleta_id
@@ -618,30 +618,30 @@ from Delivery.[Status] ST
 		join Delivery.Entregador EN on C.Entregador_id = EN.Entregador_id
 		join Delivery.Tipo_Pacote TP on P.Tp_Pacote_id = TP.Tp_Pacote_id
 where P.Status_id = 5
-group by TP.DesignaÁ„o, TP.Valor
+group by TP.Designa√ß√£o, TP.Valor
 go
 
---VIEW PARA VERIFICAR ENTREGAS CONCLUDAS, CANCELADAS E REAGENDADAS POR REGI¬O
+--VIEW PARA VERIFICAR ENTREGAS CONCLUDAS, CANCELADAS E REAGENDADAS POR REGI√ÇO
 create view Region_sucess
 as
-select R.DesignaÁ„o AS Regi„o,
+select R.Designa√ß√£o AS Regi√£o,
        SUM(case when s.Tp_status = 'Entregue' then 1 else 0 end) as [Quantidade Entregue],
        SUM(case when s.Tp_status = 'Cancelado' then 1 else 0 end) as [Quantidade Cancelado],
        SUM(case when s.Tp_status = 'Reagendado' then 1 else 0 end) as [Quantidade Reagendado],
-	   R.[Taxa de Sucesso] as [Taxa de sucesso da regi„o]
+	   R.[Taxa de Sucesso] as [Taxa de sucesso da regi√£o]
 From Delivery.Entrega E
 		join Delivery.Entregador EN ON E.Entregador_id = EN.Entregador_id
-		join Delivery.Regi„o r ON en.Regi„o_id = r.Regi„o_id
-		join Delivery.[Status] s ON e.SituaÁ„o_id = s.Status_id
-group by R.DesignaÁ„o, R.[Taxa de Sucesso]
+		join Delivery.Regi√£o r ON en.Regi√£o_id = r.Regi√£o_id
+		join Delivery.[Status] s ON e.Situa√ß√£o_id = s.Status_id
+group by R.Designa√ß√£o, R.[Taxa de Sucesso]
 go
 
---VIEW PARA VER A QUANTIDADE/VALOR DE ENTRAGAS FEITAS POR REGI√O
+--VIEW PARA VER A QUANTIDADE/VALOR DE ENTRAGAS FEITAS POR REGI√ÉO
 create view Sales_of_Region
 as
 select
-    R.DesignaÁ„o AS Regi„o,
-    Count(C.Compra_id) AS [Quantidade Vendas ConcluÌdas],
+    R.Designa√ß√£o AS Regi√£o,
+    Count(C.Compra_id) AS [Quantidade Vendas Conclu√≠das],
     SUM(TP.Valor) AS [Valor Total Vendas]
 from Delivery.Compra c
 		join Delivery.Cliente cli ON c.Cliente_id = cli.Cliente_id
@@ -649,8 +649,8 @@ from Delivery.Compra c
 		join Delivery.Tipo_Pacote tp ON p.Tp_Pacote_id = tp.Tp_Pacote_id
 		join Delivery.Entrega e ON p.Entrega_id = e.Entrega_id
 		join Delivery.Entregador en ON e.Entregador_id = en.Entregador_id
-		join Delivery.Regi„o r ON en.Regi„o_id = r.Regi„o_id
+		join Delivery.Regi√£o r ON en.Regi√£o_id = r.Regi√£o_id
 where P.status_id = 5
-group by R.DesignaÁ„o
+group by R.Designa√ß√£o
 Go
 
