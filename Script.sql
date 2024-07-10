@@ -1,6 +1,3 @@
-USE T1_AndreAleff
-GO
-
 CREATE SCHEMA Delivery
 GO
 
